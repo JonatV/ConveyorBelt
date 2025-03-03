@@ -21,6 +21,7 @@ class Parser
 private:
 	const std::string	_filename;
 	const std::string	_fileExtension;
+	std::ifstream		_fileStream;
 	bool				isExtensionValid();
 public:
 	Parser(const std::string &filename, const std::string &expectedExtension);
@@ -32,6 +33,7 @@ public:
 	//getters
 	std::string		getFilename() const;
 	std::string		getFileExtension() const;
+	std::ifstream	&getFileStream();
 
 	// exceptions
 	class WrongExtension : public std::exception
@@ -40,6 +42,11 @@ public:
 			const char *what() const throw();
 	};
 	class noExtensionFound : public std::exception
+	{
+		public:
+			const char *what() const throw();
+	};
+	class fileNotOpen : public std::exception
 	{
 		public:
 			const char *what() const throw();

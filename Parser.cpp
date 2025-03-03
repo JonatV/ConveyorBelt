@@ -13,6 +13,7 @@ bool	runParser(int ac, char **av)
 		if (ac > 2)
 			throw std::runtime_error("Program must have only one file or argument");
 		Parser parser(av[1], FILE_EXTENSION);
+		parser.parse();
 	}
 	catch (const std::exception &e) 
 	{
@@ -35,12 +36,18 @@ _filename(filename), _fileExtension(expectedExtension)
 	if (!isExtensionValid())
 		std::cout << BYELLOW "HERE extension invalid" RESET << std::endl;
 	if (VERBOSE)
-	std::cout << GREEN "Parser object constructed." RESET << std::endl;
+		std::cout << GREEN "Parser object constructed." RESET << std::endl;
 }
 Parser::~Parser()
 {
+	if (getFileStream().is_open())
+	{
+		if (VERBOSE)
+			std::cout << GREY "Closing File" RESET << std::endl;
+		getFileStream().close();
+	}
 	if (VERBOSE)
-	std::cout << GREEN "Parser object destructed." RESET << std::endl;
+		std::cout << GREEN "Parser object destructed." RESET << std::endl;
 }
 
 // Methods
@@ -55,7 +62,19 @@ bool	Parser::isExtensionValid()
 	return (true);
 }
 
-// void	Parser::
+void	Parser::parse()
+{
+	if (VERBOSE)
+		std::cout << GREY "Start parsing" RESET << std::endl;
+	getFileStream().open(getFilename().c_str());
+	if (!getFileStream().is_open())
+		throw fileNotOpen();
+	std::string buf;
+	while (std::getline(getFileStream(), buf))
+		std::cout << buf << std::endl;
+	if (VERBOSE)
+		std::cout << GREY "End parsing" RESET << std::endl;
+}
 
 // getters
 std::string Parser::getFilename() const
@@ -66,6 +85,10 @@ std::string Parser::getFileExtension() const
 {
 	return (_fileExtension);
 }
+std::ifstream &Parser::getFileStream()
+{
+	return _fileStream;
+}
 
 // exceptions
 const char *Parser::WrongExtension::what() const throw()
@@ -75,4 +98,8 @@ const char *Parser::WrongExtension::what() const throw()
 const char *Parser::noExtensionFound::what() const throw()
 {
 	return BWHITE "Insert a file with the .factory extension" RESET;
+}
+const char *Parser::fileNotOpen::what() const throw()
+{
+	return BWHITE "File could not be opened" RESET;
 }
