@@ -13,6 +13,7 @@
 #define MAGENTA "\033[35m"      // Magenta
 #define CYAN    "\033[36m"      // Cyan
 #define WHITE   "\033[37m"      // White
+#define GREY    "\033[90m"      // Grey
 
 // Bold
 #define BBLACK   "\033[1m\033[30m"      // Black
