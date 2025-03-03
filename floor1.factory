@@ -1,0 +1,22 @@
+Factory Name
+Floor 1
+Location Here
+
+Layout:
+20 x 20
+                    
+       r           
+   L-S-----r        
+        r -         
+          -r        
+         r-         
+          -         
+          -         
+          X         
+                    
+legend:
+L = launcher
+S = scanner
+r = rack
+- = belt
+X = trash
