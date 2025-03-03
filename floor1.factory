@@ -1,6 +1,6 @@
-Factory Name
-Floor 1
-Location Here
+Name:     Factory Name
+Location: Location Here
+Floor:    1
 
 Layout:
 20 x 20
@@ -14,6 +14,7 @@ Layout:
           -         
           X         
                     
+
 legend:
 L = launcher
 S = scanner
