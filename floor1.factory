@@ -1,9 +1,10 @@
 Name:     Factory Name
+Type:     Shape Sorter
 Location: Location Here
 Floor:    1
 
 Layout:
-20 x 20
+20 x 10
                     
        r           
    L-S-----r        
