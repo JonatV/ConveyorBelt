@@ -74,7 +74,21 @@ void	Parser::parse()
 		throw fileNotOpen();
 	std::string buf;
 	while (std::getline(getFileStream(), buf))
+	{
 		std::cout << buf << std::endl;
+		if (getFactory()->getAllButLayout())
+			_allButLayoutFound = true;
+		// if space or empty skip
+
+		//	if not empty and found a :
+		//		get the first part.
+		//		get the second part.
+		//		if the first part is name, type, location, floor
+		//			set the value of the factory object
+		//		Else throw an exception
+		//	Else throw an exception
+
+	}
 	if (VERBOSE)
 		std::cout << GREY "End parsing" RESET << std::endl;
 }
@@ -92,11 +106,21 @@ std::ifstream	&Parser::getFileStream()
 {
 	return (_fileStream);
 }
+bool	Parser::getAllButLayoutFound() const
+{
+	return (_allButLayoutFound);
+}
 Factory	*Parser::getFactory()
 {
 	return (_factory);
 }
 
+// Setters
+void	Parser::setAllButLayout(bool value)
+{
+	// set the flag to true
+	_allButLayoutFound = value;
+}
 // exceptions
 const char	*Parser::WrongExtension::what() const throw()
 {

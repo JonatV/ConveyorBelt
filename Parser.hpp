@@ -19,7 +19,10 @@ private:
 	const std::string	_filename;
 	const std::string	_fileExtension;
 	std::ifstream		_fileStream;
+	bool				_allButLayoutFound;
+
 	Factory				*_factory;
+
 	bool				isExtensionValid();
 public:
 	Parser(const std::string &filename, const std::string &expectedExtension);
@@ -33,6 +36,10 @@ public:
 	std::string		getFileExtension() const;
 	std::ifstream	&getFileStream();
 	Factory			*getFactory();
+	bool			getAllButLayoutFound() const;
+
+	//setters
+	void			setAllButLayout(bool value);
 
 	// exceptions
 	class WrongExtension : public std::exception
