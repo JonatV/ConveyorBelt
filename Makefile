@@ -4,7 +4,7 @@ CC = clang++
 CFLAGS = -Wall -Wextra -Werror
 STD = -std=c++98
 ifdef DEV
-	DEV_FLAGS = -g3 -fsanitize=address
+	DEV_FLAGS = -g3 -fsanitize=address -D VERBOSE=true
 	# DEV_FLAGS = -Wno-shadow
 else
 	DEV_FLAGS =
@@ -16,7 +16,6 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(STD) $(DEV_FLAGS) $(OBJS) -o $(NAME)
-
 
 %.o: %.cpp
 	$(CC) $(CFLAGS) $(STD) $(DEV_FLAGS) -c $< -o $@
