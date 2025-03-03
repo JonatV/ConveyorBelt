@@ -1,13 +1,10 @@
 #ifndef PARSER_HPP
 #define PARSER_HPP
 
+#include "main.hpp"
+#include "Factory.hpp"
 #include <string>
 #include <fstream>
-
-# ifndef VERBOSE
-#  define VERBOSE false
-# endif
-#define FILE_EXTENSION "factory"
 
 // prototype
 ///////////////
@@ -22,6 +19,7 @@ private:
 	const std::string	_filename;
 	const std::string	_fileExtension;
 	std::ifstream		_fileStream;
+	Factory				*_factory;
 	bool				isExtensionValid();
 public:
 	Parser(const std::string &filename, const std::string &expectedExtension);
@@ -34,6 +32,7 @@ public:
 	std::string		getFilename() const;
 	std::string		getFileExtension() const;
 	std::ifstream	&getFileStream();
+	Factory			*getFactory();
 
 	// exceptions
 	class WrongExtension : public std::exception
