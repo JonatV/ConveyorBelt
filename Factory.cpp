@@ -116,7 +116,6 @@ bool	Factory::processProperty(const std::string &buf)
 			if (answer.empty())
 				throw emptyPropertyValue();
 			findSetProperty(property, answer);
-			
 		}
 	}
 	else 
@@ -246,6 +245,10 @@ void	Factory::setWidth(const std::string &width)
 void	Factory::setHeight(const std::string &height)
 {
 	_height = height;
+}
+void Factory::setAllButLayoutFound(bool value)
+{
+	_allButLayoutFound = value;
 }
 
 // Exceptions

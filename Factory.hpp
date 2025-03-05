@@ -56,6 +56,7 @@ public:
 	void	setSize(const std::string &size);
 	void	setWidth(const std::string &width);
 	void	setHeight(const std::string &height);
+	void	setAllButLayoutFound(bool value);
 
 	// exceptions
 	class wrongExtension : public std::exception

@@ -38,6 +38,10 @@ void	Factory::findSetProperty(const std::string &property, const std::string &an
 	{
 		std::cout << "Property not found" << std::endl;
 	}
-	// map on each getter to check if one of the property is still empty
-	// if not, dont change Factory::_allButLayoutFound
+	if (getName() != "" && getType() != "" && getLocation() != "" && getFloor() != "" && getWidth() != "" && getHeight() != "")
+	{
+		if (VERBOSE)
+			std::cout << GREY "All properties are filled" RESET << std::endl;
+		setAllButLayoutFound(true);
+	}
 }
