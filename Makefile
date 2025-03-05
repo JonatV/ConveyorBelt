@@ -1,8 +1,8 @@
-SRCS = main.cpp Parser.cpp Factory.cpp
+SRCS = main.cpp Parser.cpp Parser_utils.cpp Factory.cpp Factory_utils.cpp
 NAME = conveyorBelt
 CC = clang++
 CFLAGS = -Wall -Wextra -Werror
-STD = -std=c++98
+STD = -std=c++11
 ifdef DEV
 	DEV_FLAGS = -g3 -fsanitize=address -D VERBOSE=true
 	# DEV_FLAGS = -Wno-shadow
