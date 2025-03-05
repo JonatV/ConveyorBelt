@@ -302,7 +302,7 @@ const char *Factory::noHeightFound::what() const throw()
 	return (RED "No Height Found" RESET);
 }
 
-const char *Factory::uncompletProperties::what() const throw()
+const char *Factory::incompletProperties::what() const throw()
 {
 	return BWHITE "You need to fill all the data before sending the layout" RESET;
 }

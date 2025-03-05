@@ -109,7 +109,7 @@ public:
 		public:
 			const char *what() const throw();
 	};
-	class uncompletProperties : public std::exception
+	class incompletProperties : public std::exception
 	{
 		public:
 			const char *what() const throw();
