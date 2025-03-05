@@ -2,6 +2,7 @@
 #include "Parser.hpp"
 #include "colors.hpp"
 #include <iostream>
+#include <cctype>
 
 // CORE
 ///////////////
@@ -49,36 +50,34 @@ Parser::~Parser()
 			std::cout << GREY "Closing File" RESET << std::endl;
 		getFileStream().close();
 	}
+	delete _factory;
 	if (VERBOSE)
 		std::cout << GREEN "Parser object destructed." RESET << std::endl;
 }
 
 // Methods
-bool	Parser::isExtensionValid()
-{
-	std::string filename = getFilename();
-	std::size_t findDot = filename.find_last_of(".");
-	if (findDot == std::string::npos)
-		throw noExtensionFound();
-	if (filename.substr(filename.find_last_of(".") + 1) != getFileExtension())
-		throw WrongExtension();
-	return (true);
-}
 
 void	Parser::parse()
 {
+	std::string	buf;
+	std::string	property;
+	std::string	answer;
+
 	if (VERBOSE)
 		std::cout << GREY "Start parsing" RESET << std::endl;
 	getFileStream().open(getFilename().c_str());
 	if (!getFileStream().is_open())
 		throw fileNotOpen();
-	std::string buf;
 	while (std::getline(getFileStream(), buf))
 	{
-		std::cout << buf << std::endl;
-		if (getFactory()->getAllButLayout())
-			_allButLayoutFound = true;
-		// if space or empty skip
+		if (checkEmptyAndSpace(buf))
+			continue;
+		if (processProperty(buf))
+			continue;
+		else
+			std::cout << buf << std::endl;
+		// if (getFactory()->getAllButLayout())
+			// break;
 
 		//	if not empty and found a :
 		//		get the first part.
@@ -121,6 +120,7 @@ void	Parser::setAllButLayout(bool value)
 	// set the flag to true
 	_allButLayoutFound = value;
 }
+
 // exceptions
 const char	*Parser::WrongExtension::what() const throw()
 {
@@ -133,4 +133,8 @@ const char	*Parser::noExtensionFound::what() const throw()
 const char	*Parser::fileNotOpen::what() const throw()
 {
 	return BWHITE "File could not be opened" RESET;
+}
+const char	*Parser::emptyPropertyValue::what() const throw()
+{
+	return BWHITE "Found an empty field for a property (other than layout and legend)" RESET;
 }

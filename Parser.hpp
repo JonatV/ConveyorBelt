@@ -29,7 +29,9 @@ public:
 	~Parser();
 
 	//methods
+	void			parse();
 	bool			checkEmptyAndSpace(const std::string &buf);
+	bool			processProperty(const std::string &buf);
 	static std::string		trim(const std::string &buf);
 	static std::pair<std::string, std::string> divideString(const std::string &buf, char delim);
 	
@@ -55,6 +57,11 @@ public:
 			const char *what() const throw();
 	};
 	class fileNotOpen : public std::exception
+	{
+		public:
+			const char *what() const throw();
+	};
+	class emptyPropertyValue : public std::exception
 	{
 		public:
 			const char *what() const throw();
