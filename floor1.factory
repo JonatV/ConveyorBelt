@@ -1,10 +1,10 @@
-Name:     Factory Name
+Name     :     Factory Name
 Type:     Shape Sorter
-Location: Location Here
+Location:Location Here
 Floor:    1
 
+Size:     20x10
 Layout:
-20 x 10
                     
        r           
    L-S-----r        
@@ -15,7 +15,6 @@ Layout:
           -         
           X         
                     
-
 legend:
 L = launcher
 S = scanner
