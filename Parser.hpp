@@ -29,7 +29,9 @@ public:
 	~Parser();
 
 	//methods
-	void	parse();
+	bool			checkEmptyAndSpace(const std::string &buf);
+	static std::string		trim(const std::string &buf);
+	static std::pair<std::string, std::string> divideString(const std::string &buf, char delim);
 	
 	//getters
 	std::string		getFilename() const;
