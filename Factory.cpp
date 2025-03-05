@@ -1,4 +1,5 @@
 #include "Factory.hpp"
+#include "Parser.hpp"
 #include "colors.hpp"
 #include <iostream>
 
@@ -68,6 +69,41 @@ std::string	Factory::getHeight() const
 	return (_height);
 }
 
+// setters
+void	Factory::setName(const std::string &name)
+{
+	_name = name;
+}
+void	Factory::setType(const std::string &type)
+{
+	_type = type;
+}
+void	Factory::setLocation(const std::string &location)
+{
+	_location = location;
+}
+void	Factory::setFloor(const std::string &floor)
+{
+	_floor = floor;
+}
+void	Factory::setSize(const std::string &size)
+{
+	auto dimension = Parser::divideString(size, 'x');
+	if (VERBOSE)
+		std::cout << GREY "Width: [" << dimension.first << "] Height: [" << dimension.second << "]" RESET << std::endl;
+	setWidth(dimension.first);
+	setHeight(dimension.second);
+}
+void	Factory::setWidth(const std::string &width)
+{
+	_width = width;
+}
+void	Factory::setHeight(const std::string &height)
+{
+	_height = height;
+}
+
+
 // Exceptions
 const char *Factory::noNameFound::what() const throw()
 {
@@ -98,3 +134,9 @@ const char *Factory::noHeightFound::what() const throw()
 {
 	return (RED "No Height Found" RESET);
 }
+
+const char *Factory::uncompletProperties::what() const throw()
+{
+	return BWHITE "You need to fill all the data before sending the layout" RESET;
+}
+
