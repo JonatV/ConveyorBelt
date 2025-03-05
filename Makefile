@@ -1,4 +1,4 @@
-SRCS = main.cpp Parser.cpp Parser_utils.cpp Factory.cpp Factory_utils.cpp
+SRCS = main.cpp Factory.cpp Factory_utils.cpp
 NAME = conveyorBelt
 CC = clang++
 CFLAGS = -Wall -Wextra -Werror
