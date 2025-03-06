@@ -9,7 +9,7 @@
 ///////////////
 
 //con/de-structor
-Factory::Factory(const std::string &filename) : _name(""), _type(""), _location(""), _floor(""), _width(""), _height("") ,_filename(filename), _fileExtension(FILE_EXTENSION), _fileStream(), _allButLayoutFound(false)
+Factory::Factory(const std::string &filename) : _name(""), _type(""), _location(""), _floor(""), _size(""), _width(-1), _height(-1) ,_filename(filename), _fileExtension(FILE_EXTENSION), _fileStream(), _allButLayoutFound(false)
 {
 	if (VERBOSE)
 		std::cout << GREEN "Factory object constructed." RESET << std::endl;
@@ -41,7 +41,6 @@ bool	Factory::parseFactory()
 	getFileStream().open(getFilename().c_str());
 	if (!getFileStream().is_open())
 		throw fileNotOpen();
-	std::cout << YELLOW "HERE" RESET << std::endl;
 	while (std::getline(getFileStream(), buf))
 	{
 		if (checkEmptyAndSpace(buf))
@@ -96,10 +95,7 @@ bool	Factory::processProperty(const std::string &buf)
 		property = pair.first;
 		answer = pair.second;
 		if (VERBOSE)
-		{
-			std::cout << GREY "Found a ':' in the line:" RESET << std::endl;
 			std::cout << "[" BLUE << property << RESET "]:[" MAGENTA << answer << RESET "]" << std::endl; 
-		}
 		if (!getAllButLayoutFound())
 		{
 			if (answer.empty())
@@ -131,7 +127,7 @@ bool	Factory::processProperty(const std::string &buf)
 		// - Check if every case of the 2d array has a letter from the legend
 		// - 	if not, throw an exception
 	}
-	else 
+	else
 		return (false); // wip check if its the correct return
 	return (true);
 }

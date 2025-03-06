@@ -17,7 +17,7 @@ void	Factory::findSetProperty(const std::string &property, const std::string &an
 		{"Type", &Factory::getType},
 		{"Location", &Factory::getLocation},
 		{"Floor", &Factory::getFloor},
-		{"Size", &Factory::getWidth}
+		{"Size", &Factory::getSize}
 	};
 
 	auto posSetter = setters.find(property);
@@ -38,7 +38,7 @@ void	Factory::findSetProperty(const std::string &property, const std::string &an
 	{
 		std::cout << "Property not found" << std::endl;
 	}
-	if (getName() != "" && getType() != "" && getLocation() != "" && getFloor() != "" && getWidth() != "" && getHeight() != "")
+	if (getName() != "" && getType() != "" && getLocation() != "" && getFloor() != "" && getSize() != "")
 	{
 		if (VERBOSE)
 			std::cout << GREY "All properties are filled" RESET << std::endl;

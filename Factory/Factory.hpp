@@ -9,12 +9,13 @@ class Factory
 {
 private:
 	//properties
-	std::string _name;
-	std::string _type;
-	std::string _location;
-	std::string _floor;
-	std::string _width;
-	std::string _height;
+	std::string	_name;
+	std::string	_type;
+	std::string	_location;
+	std::string	_floor;
+	std::string	_size;
+	int			_width;
+	int			_height;
 
 	//parser
 	const std::string	_filename;
@@ -45,8 +46,9 @@ public:
 	std::string	getType() const;
 	std::string	getLocation() const;
 	std::string	getFloor() const;
-	std::string	getWidth() const;
-	std::string	getHeight() const;
+	std::string	getSize() const;
+	int			getWidth() const;
+	int			getHeight() const;
 
 	//setters
 	void	setName(const std::string &name);
@@ -54,8 +56,8 @@ public:
 	void	setLocation(const std::string &location);
 	void	setFloor(const std::string &floor);
 	void	setSize(const std::string &size);
-	void	setWidth(const std::string &width);
-	void	setHeight(const std::string &height);
+	void	setWidth(const int width);
+	void	setHeight(const int height);
 	void	setAllButLayoutFound(bool value);
 
 	// exceptions
