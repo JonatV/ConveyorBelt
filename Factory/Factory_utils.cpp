@@ -121,7 +121,7 @@ void	Factory::displayFactory() const
 		std::cout << std::endl;
 	}
 	// floor in the middle of the bot line
-	int floorWidth = getFloor().size();
+	int floorWidth = getFloor().size() + 2;
 	int floorWidthMinusWidth = width - floorWidth;
 	for (int i = 0; i < floorWidthMinusWidth / 2; ++i)
 		std::cout << "─";
