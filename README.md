@@ -23,7 +23,37 @@ The configuration file for the ConveyorBelt project includes the following manda
 - **Layout**: The layout of the factory, which includes different elements represented by symbols.
 - **Legend**: Name every element written in the layout. Format -> "*symbol = device name*"
 
-**Exemple of output here**
+**Exemple of output here (screenshot)**
 
-![image](https://github.com/user-attachments/assets/b8ced641-bf4c-4530-bf48-15205285edb8)
+  For this input file :
+
+  ```
+  Name      : Encom
+  Type      : Sorter factory
+  Location  : NY
+  Floor     : Ground floor
+  Size      : 20x10
+  Layout    :
+                      
+         ---          
+     L>S>>>>>    >>>X 
+            >    >    
+           ->    >    
+           ->    >    
+           ->    >    
+           ->    >    
+            >>>>>>    
+                      
+  
+  Legend:
+  L = launcher
+  S = scanner
+  - = rack
+  > = Conveyor belt
+  X = trash
+  ```
+  
+  The output will looks like :
+  
+  ![image](https://github.com/user-attachments/assets/b8ced641-bf4c-4530-bf48-15205285edb8)
 
