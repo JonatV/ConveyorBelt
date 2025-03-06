@@ -50,17 +50,6 @@ bool	Factory::parseFactory()
 			continue;
 		else
 			std::cout << buf << std::endl;
-		// if (getFactory()->getAllButLayout())
-			// break;
-
-		//	if not empty and found a :
-		//		get the first part.
-		//		get the second part.
-		//		if the first part is name, type, location, floor
-		//			set the value of the factory object
-		//		Else throw an exception
-		//	Else throw an exception
-
 	}
 	if (VERBOSE)
 		std::cout << GREY "End parsing" RESET << std::endl;
@@ -117,6 +106,29 @@ bool	Factory::processProperty(const std::string &buf)
 				throw emptyPropertyValue();
 			findSetProperty(property, answer);
 		}
+	}
+	else if (buf.find("layout") != std::string::npos)
+	{
+		if (VERBOSE)
+			std::cout << GREY "Found the layout" RESET << std::endl;
+		// - check if the layout second part is empty ( " layout:")
+		// - 	if not, throw an exception
+		// - Check if all the properties are filled
+		// - Start creating the layout
+		// - 	use the width and height to create the layout (2d array)
+		// - 	iterate over the layout and fill it with the letters
+		// - 	if empty line is found, it means the layout is done
+		// - 	if the layout has the wrong number of lines or columns, throw an exception
+		// - Check for the legend
+		// - 	if the legend is not found, throw an exception (can be multiple empty lines before the legend)
+		// - 	if the legend is found, start creating the legend
+		// - 	iterate over the legend and parse the legend format : "letter = item".
+		// - 		if the legend is not complete, throw an exception
+		// - 	store the current element in a linked list
+		// - 	if the the file ends, it means the parsing is done
+		// - 	Check if wrong formant (means it has more line unnecessary)
+		// - Check if every case of the 2d array has a letter from the legend
+		// - 	if not, throw an exception
 	}
 	else 
 		return (false); // wip check if its the correct return
