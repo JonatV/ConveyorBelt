@@ -75,3 +75,34 @@ void	Factory::printLayout() const
 		std::cout << std::endl;
 	}
 }
+
+void	Factory::displayFactory() const
+{
+	for (size_t row = 0; row < _layout.size(); ++row) 
+	{
+		for (size_t col = 0; col < _layout[row].size(); ++col)
+		{
+			if (_layout[row][col] == EMPTY_SPACE)
+				std::cout << GREY "┌─┐" RESET;
+			else
+				std::cout << BMAGENTA "┌─┐" RESET;
+		}
+		std::cout << std::endl;
+		for (size_t col = 0; col < _layout[row].size(); ++col)
+		{
+			if (_layout[row][col] == EMPTY_SPACE)
+				std::cout << GREY "│ │" RESET;
+			else
+				std::cout << BMAGENTA "│" << _layout[row][col] << "│" RESET;
+		}
+		std::cout << std::endl;
+		for (size_t col = 0; col < _layout[row].size(); ++col)
+		{
+			if (_layout[row][col] == EMPTY_SPACE)
+				std::cout << GREY "└─┘" RESET;
+			else
+				std::cout << BMAGENTA "└─┘" RESET;
+		}
+		std::cout << std::endl;
+	}
+}

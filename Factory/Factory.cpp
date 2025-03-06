@@ -159,7 +159,7 @@ void	Factory::processLayout()
 	}
 	if (row != getHeight() - 1)
 		throw wrongLayoutHeight();
-	printLayout();
+	// printLayout(); // dev
 	if (VERBOSE)
 		std::cout << GREY "Layout done" RESET << std::endl;
 }
@@ -191,9 +191,6 @@ void	Factory::processLegend()
 	}
 	if (getLegend().empty())
 		throw noLegend();
-	for (const auto& item : _legend) {
-		std::cout << item.first << " = " << item.second << std::endl;
-	}
 }
 
 void	Factory::compareLegendWithLayout()

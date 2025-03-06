@@ -26,7 +26,6 @@ static bool	checkProgramArgs(int ac)
 
 int	main(int ac, char **av)
 {
-	// verify arguments
 	if (!checkProgramArgs(ac))
 		return (1);
 	if (VERBOSE)
@@ -44,6 +43,7 @@ int	main(int ac, char **av)
 	{
 		std::cout << RED "Error: Unexpected exception." BWHITE << RESET << std::endl;
 	}
+	factory->displayFactory();
 	delete factory;
 	return (0);
 }

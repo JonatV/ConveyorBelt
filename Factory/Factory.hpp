@@ -45,6 +45,7 @@ public:
 	std::pair<std::string, std::string> divideString(const std::string &buf, char delim);
 	void	initLayout(int width, int height);
 	void	printLayout() const;
+	void	displayFactory() const;
 
 	//getters
 	std::string		getFilename() const;
