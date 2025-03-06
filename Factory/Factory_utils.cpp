@@ -78,8 +78,18 @@ void	Factory::printLayout() const
 
 void	Factory::displayFactory() const
 {
+	int titleWidth = getName().size() + 2;
+	int width = (getWidth() + 2) * 3;
+	int widthMinusTitle = width - titleWidth;
+	for (int i = 0; i < widthMinusTitle / 2; ++i)
+		std::cout << "─";
+	std::cout << BWHITE " " << getName() << " " RESET;
+	for (int i = 0; i < widthMinusTitle / 2; ++i)
+		std::cout << "─";
+	std::cout << std::endl;
 	for (size_t row = 0; row < _layout.size(); ++row) 
 	{
+		std::cout << BWHITE "|  " RESET; 
 		for (size_t col = 0; col < _layout[row].size(); ++col)
 		{
 			if (_layout[row][col] == EMPTY_SPACE)
@@ -87,7 +97,9 @@ void	Factory::displayFactory() const
 			else
 				std::cout << BMAGENTA "┌─┐" RESET;
 		}
+		std::cout << BWHITE "  |" RESET; 
 		std::cout << std::endl;
+		std::cout << BWHITE "|  " RESET; 
 		for (size_t col = 0; col < _layout[row].size(); ++col)
 		{
 			if (_layout[row][col] == EMPTY_SPACE)
@@ -95,7 +107,9 @@ void	Factory::displayFactory() const
 			else
 				std::cout << BMAGENTA "│" << _layout[row][col] << "│" RESET;
 		}
+		std::cout << BWHITE "  |" RESET; 
 		std::cout << std::endl;
+		std::cout << BWHITE "|  " RESET; 
 		for (size_t col = 0; col < _layout[row].size(); ++col)
 		{
 			if (_layout[row][col] == EMPTY_SPACE)
@@ -103,6 +117,16 @@ void	Factory::displayFactory() const
 			else
 				std::cout << BMAGENTA "└─┘" RESET;
 		}
+		std::cout << BWHITE "  |" RESET; 
 		std::cout << std::endl;
 	}
+	// floor in the middle of the bot line
+	int floorWidth = getFloor().size();
+	int floorWidthMinusWidth = width - floorWidth;
+	for (int i = 0; i < floorWidthMinusWidth / 2; ++i)
+		std::cout << "─";
+	std::cout << BWHITE " " << getFloor() << " " RESET;
+	for (int i = 0; i < floorWidthMinusWidth / 2; ++i)
+		std::cout << "─";
+	std::cout << std::endl;
 }
