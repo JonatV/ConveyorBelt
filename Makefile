@@ -1,4 +1,3 @@
-SRCS = main.cpp Factory.cpp Factory_utils.cpp
 NAME = conveyorBelt
 CC = clang++
 CFLAGS = -Wall -Wextra -Werror
@@ -9,6 +8,11 @@ ifdef DEV
 else
 	DEV_FLAGS =
 endif
+
+
+FACTORY = Factory Factory_utils
+
+SRCS =		main.cpp $(addprefix Factory/, $(addsuffix .cpp, $(FACTORY)))
 
 OBJS = $(SRCS:.cpp=.o)
 

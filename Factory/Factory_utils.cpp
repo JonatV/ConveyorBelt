@@ -1,5 +1,5 @@
 #include "Factory.hpp"
-#include "colors.hpp"
+#include "../colors.hpp"
 #include <iostream>
 #include <map>
 

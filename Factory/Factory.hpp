@@ -1,7 +1,7 @@
 #ifndef FACTORY_HPP
 #define FACTORY_HPP
 
-#include "main.hpp"
+#include "../main.hpp"
 #include <fstream>
 #include <string>
 
