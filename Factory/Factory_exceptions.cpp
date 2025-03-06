@@ -65,3 +65,13 @@ const char *Factory::expectedLayoutProperty::what() const throw()
 	return BWHITE "Expected the layout to be found. Layout come after all the properties. Do not make duplicate propeties" RESET;
 }
 
+const char *Factory::wrongLayoutWidth::what() const throw()
+{
+	return BWHITE "The width value entered does not match the width of the factory layout" RESET;
+}
+
+const char *Factory::wrongLayoutHeight::what() const throw()
+{
+	return BWHITE "The height value entered does not match the height of the factory layout" RESET;
+}
+

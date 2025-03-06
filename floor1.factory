@@ -1,20 +1,11 @@
-Name     :     Factory Name
-Type:     Shape Sorter
-Location:Location Here
-Floor:    1
-
-Size:     20x10
-
-
-
-
-
-
-          
-
-Layout:
+Name      : Factory Name
+Type      : Shape Sorter
+Location  : Location Here
+Floor     : 1
+Size      : 20x10
+Layout    :
                     
-       r           
+      r             
    L-S-----r        
         r -         
           -r        

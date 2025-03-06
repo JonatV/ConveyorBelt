@@ -55,8 +55,7 @@ bool	Factory::parseFactory()
 			continue;
 		if (buf.find("Layout") == std::string::npos)
 			throw expectedLayoutProperty();
-		else
-			break; // info: here it means we found the layout
+		break; // info: here it means we found the layout
 	}
 	processLayout();
 	if (VERBOSE)
@@ -119,6 +118,9 @@ void	Factory::findSetProperty(const std::string &property, const std::string &an
 
 void	Factory::processLayout()
 {
+	std::string	buf;
+	int			row;
+	int			col;
 		// processLayout();
 		// - check if the layout second part is empty ( " layout:")
 		// - 	if not, throw an exception
@@ -138,8 +140,44 @@ void	Factory::processLayout()
 		// - 	Check if wrong formant (means it has more line unnecessary)
 		// - Check if every case of the 2d array has a letter from the legend
 		// - 	if not, throw an exception
-		initLayout(getWidth(), getHeight());
-		printLayout();
+	// pass the empty lines (space are counted in the layout)
+	while(std::getline(getFileStream(), buf))
+	{
+		if (buf.empty())
+			continue;
+		break;
+	}
+	initLayout(getWidth(), getHeight());
+	if (buf.size() != static_cast<size_t>(getWidth()))
+		throw wrongLayoutWidth();
+	row = 0;
+	for (col = 0; col < getWidth(); col++)
+	{
+		if (buf[col] == ' ')
+			continue;
+		getLayout()[row][col] = buf[col];
+	}
+	while (std::getline(getFileStream(), buf))
+	{
+		if (buf.empty())
+			break;
+		row++;
+		if (row >= getHeight())
+			throw wrongLayoutHeight();
+		if (buf.size() != static_cast<size_t>(getWidth()))
+			throw wrongLayoutWidth();
+		for (col = 0; col < getWidth(); col++)
+		{
+			if (buf[col] == ' ')
+				continue;
+			getLayout()[row][col] = buf[col];
+		}
+	}
+	if (row != getHeight() - 1)
+		throw wrongLayoutHeight();
+	printLayout();
+	if (VERBOSE)
+		std::cout << GREY "Layout done" RESET << std::endl;
 }
 
 bool	Factory::processProperty(const std::string &buf)

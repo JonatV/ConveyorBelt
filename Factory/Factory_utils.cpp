@@ -63,7 +63,7 @@ void	Factory::initLayout(int w, int h)
 {
 	std::cout << YELLOW "Init layout" RESET << std::endl;
 	// _layout.assign(_height, std::vector<char>(_width, 'x'));
-	getLayout().assign(h, std::vector<char>(w, 'X'));
+	getLayout().assign(h, std::vector<char>(w, '.'));
 }
 
 void	Factory::printLayout() const

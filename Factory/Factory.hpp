@@ -128,6 +128,16 @@ public:
 		public:
 			const char *what() const throw();
 	};
+	class wrongLayoutWidth : public std::exception
+	{
+		public:
+			const char *what() const throw();
+	};
+	class wrongLayoutHeight : public std::exception
+	{
+		public:
+			const char *what() const throw();
+	};
 };
 
 #endif
