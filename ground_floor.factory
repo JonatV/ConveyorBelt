@@ -5,19 +5,19 @@ Floor     : Ground floor
 Size      : 20x10
 Layout    :
                     
-      r             
-   L>S>>>>>r        
-        r >         
-          >r        
-         r>         
-          >         
-          >         
-          X         
+       ---          
+   L>S>>>>>    >>>X 
+          >    >    
+         ->    >    
+         ->    >    
+         ->    >    
+         ->    >    
+          >>>>>>    
                     
 
 Legend:
 L = launcher
 S = scanner
-r = rack
-> = belt
+- = rack
+> = Conveyor belt
 X = trash
