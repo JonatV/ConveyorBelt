@@ -33,6 +33,7 @@ public:
 	bool	isExtensionValid();
 	bool	checkEmptyAndSpace(const std::string &buf);
 	bool	processProperty(const std::string &buf);
+	void	processLayout();
 	std::string	trim(const std::string &buf);
 	std::pair<std::string, std::string> divideString(const std::string &buf, char delim);
 
@@ -112,6 +113,11 @@ public:
 			const char *what() const throw();
 	};
 	class incompletProperties : public std::exception
+	{
+		public:
+			const char *what() const throw();
+	};
+	class expectedLayoutProperty : public std::exception
 	{
 		public:
 			const char *what() const throw();

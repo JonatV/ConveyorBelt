@@ -1,6 +1,7 @@
 #include "Factory.hpp"
 #include "../colors.hpp"
 #include <iostream>
+#include <map>
 
 // CORE
 ///////////////
@@ -41,14 +42,21 @@ bool	Factory::parseFactory()
 	getFileStream().open(getFilename().c_str());
 	if (!getFileStream().is_open())
 		throw fileNotOpen();
-	while (std::getline(getFileStream(), buf))
+	while (!getAllButLayoutFound() && std::getline(getFileStream(), buf))
 	{
 		if (checkEmptyAndSpace(buf))
 			continue;
 		if (processProperty(buf))
 			continue;
+	}
+	while (std::getline(getFileStream(), buf))
+	{
+		if (checkEmptyAndSpace(buf))
+			continue;
+		if (buf.find("Layout") == std::string::npos)
+			throw expectedLayoutProperty();
 		else
-			std::cout << buf << std::endl;
+			break;
 	}
 	if (VERBOSE)
 		std::cout << GREY "End parsing" RESET << std::endl;
@@ -67,21 +75,50 @@ bool	Factory::isExtensionValid()
 	return (true);
 }
 
-bool Factory::checkEmptyAndSpace(const std::string &buf)
+void	Factory::findSetProperty(const std::string &property, const std::string &answer)
 {
-	if (buf.empty())
+	static const std::map<std::string, void (Factory::*)(const std::string &)> setters = {
+		{"Name", &Factory::setName},
+		{"Type", &Factory::setType},
+		{"Location", &Factory::setLocation},
+		{"Floor", &Factory::setFloor},
+		{"Size", &Factory::setSize}
+	};
+	static const std::map<std::string, std::string (Factory::*)() const> getters = {
+		{"Name", &Factory::getName},
+		{"Type", &Factory::getType},
+		{"Location", &Factory::getLocation},
+		{"Floor", &Factory::getFloor},
+		{"Size", &Factory::getSize}
+	};
+
+	auto posSetter = setters.find(property);
+	auto posGetter = getters.find(property);
+	if (posSetter != setters.end())
 	{
 		if (VERBOSE)
-			std::cout << GREY "Empty line, skip" RESET << std::endl;
-		return (true);
+			std::cout << GREY "Property found: " << posSetter->first << RESET << std::endl;
+		std::string valueCheck = (this->*(posGetter->second))();
+		if (!valueCheck.empty())
+		{
+			std::cout << "Property already set: " << valueCheck << std::endl; // wip can throw an error if multiple similar properties
+			return;
+		}
+		(this->*(posSetter->second))(answer);
 	}
-	if (buf.find_first_not_of("\t\n\v\f\r ") == std::string::npos)
+	else
+		std::cout << "Property not found" << std::endl;
+	if (getName() != "" && getType() != "" && getLocation() != "" && getFloor() != "" && getSize() != "")
 	{
 		if (VERBOSE)
-			std::cout << GREY "Only space line, skip" RESET << std::endl;
-		return (true);
+			std::cout << GREY "All properties are filled" RESET << std::endl;
+		setAllButLayoutFound(true);
 	}
-	return (false);
+}
+
+void	Factory::processLayout()
+{
+
 }
 
 bool	Factory::processProperty(const std::string &buf)
@@ -96,18 +133,22 @@ bool	Factory::processProperty(const std::string &buf)
 		answer = pair.second;
 		if (VERBOSE)
 			std::cout << "[" BLUE << property << RESET "]:[" MAGENTA << answer << RESET "]" << std::endl; 
-		if (!getAllButLayoutFound())
-		{
-			if (answer.empty())
-				throw emptyPropertyValue();
-			findSetProperty(property, answer);
-		}
 	}
-	else if (buf.find("layout") != std::string::npos)
+	else
+	{
+		if (VERBOSE)
+			std::cout << GREY "No ':' found in the line" RESET << std::endl; // error here
+	}
+	if (answer.empty())
+		throw emptyPropertyValue();
+	findSetProperty(property, answer);
+	
+	
+	if (buf.find("layout") != std::string::npos)
 	{
 		if (VERBOSE)
 			std::cout << GREY "Found the layout" RESET << std::endl;
-		
+		// processLayout();
 		// - check if the layout second part is empty ( " layout:")
 		// - 	if not, throw an exception
 		// - Check if all the properties are filled
@@ -126,47 +167,9 @@ bool	Factory::processProperty(const std::string &buf)
 		// - 	Check if wrong formant (means it has more line unnecessary)
 		// - Check if every case of the 2d array has a letter from the legend
 		// - 	if not, throw an exception
+		return (false);
 	}
 	else
 		return (false); // wip check if its the correct return
-	return (true);
-}
-
-std::string	Factory::trim(const std::string &buf)
-{
-	std::size_t	start;
-	std::size_t	end;
-
-	start = buf.find_first_not_of("\t\n\v\f\r ");
-	end = buf.find_last_not_of("\t\n\v\f\r ");
-	if (start == std::string::npos)
-		return ("");
-	return (buf.substr(start, end - start + 1));
-}
-
-std::pair<std::string, std::string> Factory::divideString(const std::string &buf, char delim)
-{
-	std::string	first;
-	std::string	second;
-
-	first = buf.substr(0, buf.find_first_of(delim));
-	second = buf.substr(buf.find_first_of(delim) + 1);
-	first = trim(first);
-	second = trim(second);
-	return (std::make_pair(first, second));
-}
-
-bool	Factory::getAllButLayout()
-{
-	// check if all the fields are filled (except layout, width and height) it means not ""
-	if (getName() == "")
-		throw noNameFound();
-	if (getType() == "")
-		throw noTypeFound();
-	if (getLocation() == "")
-		throw noLocationFound();
-	if (getFloor() == "")
-		throw noFloorFound();
-	// set the flag to true
 	return (true);
 }

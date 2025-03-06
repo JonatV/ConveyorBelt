@@ -60,3 +60,8 @@ const char *Factory::incompletProperties::what() const throw()
 	return BWHITE "You need to fill all the data before sending the layout" RESET;
 }
 
+const char *Factory::expectedLayoutProperty::what() const throw()
+{
+	return BWHITE "Expected the layout to be found. Layout come after all the properties. Do not make duplicate propeties" RESET;
+}
+
