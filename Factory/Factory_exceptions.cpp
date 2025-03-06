@@ -75,3 +75,13 @@ const char *Factory::wrongLayoutHeight::what() const throw()
 	return BWHITE "The height value entered does not match the height of the factory layout" RESET;
 }
 
+const char *Factory::noLegend::what() const throw()
+{
+	return BWHITE "Add a legend for every item of the factory. Format 'Letter = itemType'" RESET;
+} 
+
+const char *Factory::duplicateLegend::what() const throw()
+{
+	return BWHITE "The legend has duplicate element. One letter per item type." RESET;
+}
+

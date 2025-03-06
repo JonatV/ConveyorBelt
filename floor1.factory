@@ -6,18 +6,18 @@ Size      : 20x10
 Layout    :
                     
       r             
-   L-S-----r        
-        r -         
-          -r        
-         r-         
-          -         
-          -         
+   L>S>>>>>r        
+        r >         
+          >r        
+         r>         
+          >         
+          >         
           X         
                     
 
-legend:
+Legend:
 L = launcher
 S = scanner
 r = rack
-- = belt
+> = belt
 X = trash

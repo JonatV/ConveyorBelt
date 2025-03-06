@@ -65,6 +65,12 @@ std::vector<std::vector<char>> &Factory::getLayout()
 	return (_layout);
 }
 
+std::unordered_map<char, std::string>	&Factory::getLegend()
+{
+	return (_legend);
+}
+
+
 // setters
 ///////////////////
 void	Factory::setName(const std::string &name)

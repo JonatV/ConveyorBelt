@@ -5,6 +5,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <unordered_map>
 
 class Factory
 {
@@ -18,6 +19,7 @@ private:
 	int								_width;
 	int								_height;
 	std::vector <std::vector<char>>	_layout;
+	std::unordered_map<char, std::string>	_legend;
 
 	//parser
 	const std::string	_filename;
@@ -36,6 +38,7 @@ public:
 	bool	checkEmptyAndSpace(const std::string &buf);
 	bool	processProperty(const std::string &buf);
 	void	processLayout();
+	void	processLegend();
 	std::string	trim(const std::string &buf);
 	std::pair<std::string, std::string> divideString(const std::string &buf, char delim);
 	void	initLayout(int width, int height);
@@ -47,7 +50,8 @@ public:
 	std::ifstream	&getFileStream();
 	bool			getAllButLayoutFound() const;
 
-	std::vector<std::vector<char>>	&getLayout();
+	std::vector<std::vector<char>>			&getLayout();
+	std::unordered_map<char, std::string>	&getLegend();
 
 	std::string	getName() const;
 	std::string	getType() const;
@@ -134,6 +138,16 @@ public:
 			const char *what() const throw();
 	};
 	class wrongLayoutHeight : public std::exception
+	{
+		public:
+			const char *what() const throw();
+	};
+	class noLegend : public std::exception
+	{
+		public:
+			const char *what() const throw();
+	};
+	class duplicateLegend : public std::exception
 	{
 		public:
 			const char *what() const throw();

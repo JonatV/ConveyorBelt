@@ -10,7 +10,7 @@
 ///////////////
 
 //con/de-structor
-Factory::Factory(const std::string &filename) : _name(""), _type(""), _location(""), _floor(""), _size(""), _width(-1), _height(-1), _layout(), _filename(filename), _fileExtension(FILE_EXTENSION), _fileStream(), _allButLayoutFound(false)
+Factory::Factory(const std::string &filename) : _name(""), _type(""), _location(""), _floor(""), _size(""), _width(-1), _height(-1), _layout(), _legend(), _filename(filename), _fileExtension(FILE_EXTENSION), _fileStream(), _allButLayoutFound(false)
 {
 	if (VERBOSE)
 		std::cout << GREEN "Factory object constructed." RESET << std::endl;
@@ -58,6 +58,7 @@ bool	Factory::parseFactory()
 		break; // info: here it means we found the layout
 	}
 	processLayout();
+	processLegend();
 	if (VERBOSE)
 		std::cout << GREY "End parsing" RESET << std::endl;
 	return (true);
@@ -121,25 +122,7 @@ void	Factory::processLayout()
 	std::string	buf;
 	int			row;
 	int			col;
-		// processLayout();
-		// - check if the layout second part is empty ( " layout:")
-		// - 	if not, throw an exception
-		// - Check if all the properties are filled
-		// - Start creating the layout
-		// - 	use the width and height to create the layout (2d array)
-		// - 	iterate over the layout and fill it with the letters
-		// - 	if empty line is found, it means the layout is done
-		// - 	if the layout has the wrong number of lines or columns, throw an exception
-		// - Check for the legend
-		// - 	if the legend is not found, throw an exception (can be multiple empty lines before the legend)
-		// - 	if the legend is found, start creating the legend
-		// - 	iterate over the legend and parse the legend format : "letter = item".
-		// - 		if the legend is not complete, throw an exception
-		// - 	store the current element in a linked list
-		// - 	if the the file ends, it means the parsing is done
-		// - 	Check if wrong formant (means it has more line unnecessary)
-		// - Check if every case of the 2d array has a letter from the legend
-		// - 	if not, throw an exception
+
 	// pass the empty lines (space are counted in the layout)
 	while(std::getline(getFileStream(), buf))
 	{
@@ -178,6 +161,46 @@ void	Factory::processLayout()
 	printLayout();
 	if (VERBOSE)
 		std::cout << GREY "Layout done" RESET << std::endl;
+}
+
+void	Factory::processLegend()
+{
+		// - Check for the legend
+		// - 	if the legend is not found, throw an exception (can be multiple empty lines before the legend)
+		// - 	if the legend is found, start creating the legend
+		// - 	iterate over the legend and parse the legend format : "letter = item".
+		// - 		if the legend is not complete, throw an exception
+		// - 	store the current element in a linked list
+		// - 	if the the file ends, it means the parsing is done
+		// - 	Check if wrong formant (means it has more line unnecessary)
+		// - Check if every case of the 2d array has a letter from the legend
+		// - 	if not, throw an exception
+	char		letter;
+	std::string	buf;
+	std::string	type;
+
+	std::getline(getFileStream(), buf);
+	if (buf.find("Legend") == std::string::npos)
+		throw noLegend();
+	while (std::getline(getFileStream(), buf))
+	{
+		if (checkEmptyAndSpace(buf))
+			continue;
+		if (buf.find('=') != std::string::npos)
+		{
+			auto pair = divideString(buf, '=');
+			letter = pair.first[0];
+			type = pair.second;
+			if (getLegend().find(letter) != getLegend().end())
+				throw duplicateLegend();
+			getLegend()[letter] = type;
+		}
+	}
+	if (getLegend().empty())
+		throw noLegend();
+	for (const auto& item : _legend) {
+		std::cout << item.first << " = " << item.second << std::endl;
+	}
 }
 
 bool	Factory::processProperty(const std::string &buf)
