@@ -85,3 +85,8 @@ const char *Factory::duplicateLegend::what() const throw()
 	return BWHITE "The legend has duplicate element. One letter per item type." RESET;
 }
 
+const char *Factory::nothingAfterLegend::what() const throw()
+{
+	return BWHITE "The legend must be the last element of the config file." RESET;
+}
+

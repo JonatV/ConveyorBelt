@@ -195,6 +195,8 @@ void	Factory::processLegend()
 				throw duplicateLegend();
 			getLegend()[letter] = type;
 		}
+		else
+			throw nothingAfterLegend();
 	}
 	if (getLegend().empty())
 		throw noLegend();
