@@ -1,6 +1,7 @@
 #include "Factory.hpp"
 #include "../colors.hpp"
 #include <iostream>
+#include <vector>
 
 bool Factory::checkEmptyAndSpace(const std::string &buf)
 {
@@ -56,4 +57,23 @@ bool	Factory::getAllButLayout()
 		throw noFloorFound();
 	// set the flag to true
 	return (true);
+}
+
+void	Factory::initLayout(int w, int h)
+{
+	std::cout << YELLOW "Init layout" RESET << std::endl;
+	// _layout.assign(_height, std::vector<char>(_width, 'x'));
+	getLayout().assign(h, std::vector<char>(w, 'X'));
+}
+
+void	Factory::printLayout() const
+{
+	for (const auto &row : _layout)
+	{
+		for (const auto &cell : row)
+		{
+			std::cout << cell << " ";
+		}
+		std::cout << std::endl;
+	}
 }

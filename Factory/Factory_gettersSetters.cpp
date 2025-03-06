@@ -60,6 +60,11 @@ int	Factory::getHeight() const
 	return (_height);
 }
 
+std::vector<std::vector<char>> &Factory::getLayout()
+{
+	return (_layout);
+}
+
 // setters
 ///////////////////
 void	Factory::setName(const std::string &name)

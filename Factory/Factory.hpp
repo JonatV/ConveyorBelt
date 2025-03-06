@@ -4,18 +4,20 @@
 #include "../main.hpp"
 #include <fstream>
 #include <string>
+#include <vector>
 
 class Factory
 {
 private:
 	//properties
-	std::string	_name;
-	std::string	_type;
-	std::string	_location;
-	std::string	_floor;
-	std::string	_size;
-	int			_width;
-	int			_height;
+	std::string						_name;
+	std::string						_type;
+	std::string						_location;
+	std::string						_floor;
+	std::string						_size;
+	int								_width;
+	int								_height;
+	std::vector <std::vector<char>>	_layout;
 
 	//parser
 	const std::string	_filename;
@@ -36,12 +38,16 @@ public:
 	void	processLayout();
 	std::string	trim(const std::string &buf);
 	std::pair<std::string, std::string> divideString(const std::string &buf, char delim);
+	void	initLayout(int width, int height);
+	void	printLayout() const;
 
 	//getters
 	std::string		getFilename() const;
 	std::string		getFileExtension() const;
 	std::ifstream	&getFileStream();
 	bool			getAllButLayoutFound() const;
+
+	std::vector<std::vector<char>>	&getLayout();
 
 	std::string	getName() const;
 	std::string	getType() const;
