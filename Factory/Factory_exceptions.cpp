@@ -90,3 +90,8 @@ const char *Factory::nothingAfterLegend::what() const throw()
 	return BWHITE "The legend must be the last element of the config file." RESET;
 }
 
+const char *Factory::letterNotInLegend::what() const throw()
+{
+	return BWHITE "The layout has a letter that is not in the legend. Add it to the legend or delete it from the layout." RESET;
+}
+

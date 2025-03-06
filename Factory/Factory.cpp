@@ -59,6 +59,7 @@ bool	Factory::parseFactory()
 	}
 	processLayout();
 	processLegend();
+	compareLegendWithLayout();
 	if (VERBOSE)
 		std::cout << GREY "End parsing" RESET << std::endl;
 	return (true);
@@ -165,16 +166,6 @@ void	Factory::processLayout()
 
 void	Factory::processLegend()
 {
-		// - Check for the legend
-		// - 	if the legend is not found, throw an exception (can be multiple empty lines before the legend)
-		// - 	if the legend is found, start creating the legend
-		// - 	iterate over the legend and parse the legend format : "letter = item".
-		// - 		if the legend is not complete, throw an exception
-		// - 	store the current element in a linked list
-		// - 	if the the file ends, it means the parsing is done
-		// - 	Check if wrong formant (means it has more line unnecessary)
-		// - Check if every case of the 2d array has a letter from the legend
-		// - 	if not, throw an exception
 	char		letter;
 	std::string	buf;
 	std::string	type;
@@ -202,6 +193,19 @@ void	Factory::processLegend()
 		throw noLegend();
 	for (const auto& item : _legend) {
 		std::cout << item.first << " = " << item.second << std::endl;
+	}
+}
+
+void	Factory::compareLegendWithLayout()
+{
+	// check if all the letters in the layout are in the legend
+	for (const auto &row : getLayout())
+	{
+		for (const auto &col : row)
+		{
+			if (col != EMPTY_SPACE && getLegend().find(col) == getLegend().end())
+				throw letterNotInLegend();
+		}
 	}
 }
 

@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
+#define EMPTY_SPACE '.'
 
 class Factory
 {
@@ -39,6 +40,7 @@ public:
 	bool	processProperty(const std::string &buf);
 	void	processLayout();
 	void	processLegend();
+	void	compareLegendWithLayout();
 	std::string	trim(const std::string &buf);
 	std::pair<std::string, std::string> divideString(const std::string &buf, char delim);
 	void	initLayout(int width, int height);
@@ -153,6 +155,11 @@ public:
 			const char *what() const throw();
 	};
 	class nothingAfterLegend : public std::exception
+	{
+		public:
+			const char *what() const throw();
+	};
+	class letterNotInLegend : public std::exception
 	{
 		public:
 			const char *what() const throw();
