@@ -10,7 +10,7 @@ else
 endif
 
 
-FACTORY = Factory Factory_utils
+FACTORY = Factory Factory_utils Factory_exceptions Factory_gettersSetters
 
 SRCS =		main.cpp $(addprefix Factory/, $(addsuffix .cpp, $(FACTORY)))
 
